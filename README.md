@@ -1,4 +1,5 @@
 # clj-org
+![image](img/planetz.png)
 
 A (partially complete) Org Mode parser in Clojure.
 
