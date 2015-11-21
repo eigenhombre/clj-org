@@ -26,8 +26,9 @@ here](https://github.com/eigenhombre/clj-org/blob/master/src/clj_org/org.clj#L36
 ## Example
 
     (ns myproject.core
-      (:require [clj-org.org :refer [txt->org]]))
-    (txt->org "#+TITLE: This is an Org Mode file.
+      (:require [clj-org.org :refer [parse-org]]))
+    
+    (parse-org "#+TITLE: This is an Org Mode file.
 
     * This is the outer section
     ** This is an inner section
@@ -37,7 +38,9 @@ here](https://github.com/eigenhombre/clj-org/blob/master/src/clj_org/org.clj#L36
     - Plain List Item 2
     [[http://eigenhombre.com][A link to a Web site]]
     ")
-    ;;=>
+
+... yields:
+
     {:title "This is an Org Mode file.",
      :headers "\n#+TITLE: This is an Org Mode file.\n\n",
      :content

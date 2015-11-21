@@ -1,4 +1,4 @@
-(defproject clj-org "0.0.1"
+(defproject clj-org "0.0.2"
   :description "A Parser for Emacs Org Mode Files"
   :url "https://github.com/eigenhombre/clj-org"
   :license {:name "MIT"}

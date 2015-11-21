@@ -498,7 +498,7 @@
   (clojure.string/split txt #"\n"))
 
 
-(defn txt->org [txt]
+(defn parse-org [txt]
   (let [title (get-title txt)
         [hdrs body] (split-headers-and-body txt)
         slurped-lines (-> txt escape-html txt->lines)
@@ -524,7 +524,7 @@
 
 (comment
 
-  (txt->org "#+TITLE: This is an Org Mode file.
+  (parse-org "#+TITLE: This is an Org Mode file.
 
     * This is the outer section
     ** This is an inner section
