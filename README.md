@@ -7,7 +7,9 @@ A (partially complete) Org Mode parser in Clojure.
 
 [![Clojars Project](http://clojars.org/clj-org/latest-version.svg)](http://clojars.org/clj-org)
 
-This library parses (a subset of) Org Mode to Hiccup, which is a
+This library parses (a subset of) Emacs [Org
+Mode](http://orgmode.org/) format to
+[Hiccup](https://github.com/weavejester/hiccup), which is a
 representation of HTML in S-expressions common for rendering Web pages
 but can be used more generally, as desired.
 
