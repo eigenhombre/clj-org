@@ -13,6 +13,12 @@ Mode](http://orgmode.org/) format to
 representation of HTML in S-expressions common for rendering Web pages
 but can be used more generally, as desired.
 
+## Getting Started
+
+Add the above dependency to `project.clj`.  Use
+`clj-org.org/parse-org` to convert a string of Org Mode text into
+Hiccup.
+
 ## Implementation
 
 Factored out of the [blorg](https://github.com/eigenhombre/blorg) blog
@@ -64,10 +70,6 @@ here](https://github.com/eigenhombre/clj-org/blob/master/src/clj_org/org.clj#L36
 	 [:a {:href "http://eigenhombre.com"} "A link to a Web site"]
 	 "\n"]]]]}
 
-
-## Getting Started
-
-Add the above dependency to `project.clj`.
 
 ## License
 
