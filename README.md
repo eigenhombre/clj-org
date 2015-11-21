@@ -6,6 +6,49 @@ A (partially complete) Org Mode parser in Clojure
 
 [![Clojars Project](http://clojars.org/clj-org/latest-version.svg)](http://clojars.org/clj-org)
 
+This library parses (a subset of) Org Mode to Hiccup, which is a
+representation of HTML in S-expressions common for rendering Web pages
+but can be used more generally, as desired.
+
+## Example
+
+    (ns myproject.core
+      (:require [clj-org.org :refer [txt->org]]))
+    (txt->org "#+TITLE: This is an Org Mode file.
+
+    * This is the outer section
+    ** This is an inner section
+    Inner section body -- /with italic text/!  And *bold text* too.
+
+    - Plain List Item 1
+    - Plain List Item 2
+    [[http://eigenhombre.com][A link to a Web site]]
+    ")
+    ;;=>
+    {:title "This is an Org Mode file.",
+     :headers "\n#+TITLE: This is an Org Mode file.\n\n",
+     :content
+     [:div
+      [:h1 [:p "This is the outer section"]]
+      [:h2 [:p "This is an inner section"]]
+      [:span
+       [:p
+	[:span
+	 [:span
+	  "Inner section body &#x2013; "
+	  [:em "with italic text"]
+	  "!  And "]
+	 [:strong "bold text"]
+	 " too.\n"]]
+       [:ul
+	[:li [:p "Plain List Item 1\n"]]
+	[:li [:p "Plain List Item 2\n"]]]
+       [:p
+	[:span
+	 [:a {:href "http://eigenhombre.com"} "A link to a Web site"]
+	 "\n"]]]]}
+
+
 ## Getting Started
 
 Add the above dependency to `project.clj`.
