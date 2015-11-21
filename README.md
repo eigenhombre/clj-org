@@ -1,6 +1,6 @@
 # clj-org
 
-A (partially complete) Org Mode parser in Clojure
+A (partially complete) Org Mode parser in Clojure.
 
 [![Build Status](https://travis-ci.org/eigenhombre/clj-org.svg)](https://travis-ci.org/eigenhombre/clj-org)
 
@@ -9,6 +9,14 @@ A (partially complete) Org Mode parser in Clojure
 This library parses (a subset of) Org Mode to Hiccup, which is a
 representation of HTML in S-expressions common for rendering Web pages
 but can be used more generally, as desired.
+
+## Implementation
+
+Factored out of the [blorg](https://github.com/eigenhombre/blorg) blog
+prototype, this parser started out as an Instaparse grammar.  However,
+it proved too difficult to get good performance without ambiguities,
+so the parser has become what is basically a series of monster regular
+expressions [example here](https://github.com/eigenhombre/clj-org/blob/master/src/clj_org/org.clj#L361).
 
 ## Example
 
