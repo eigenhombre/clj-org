@@ -26,8 +26,8 @@ prototype, this parser started out as an
 [Instaparse](https://github.com/Engelberg/instaparse) grammar.
 However, it proved too difficult to get good performance without
 ambiguities, so the parser has become what is basically a series of
-monster regular expressions [example
-here](https://github.com/eigenhombre/clj-org/blob/master/src/clj_org/org.clj#L361).
+monster regular expressions ([example
+here](https://github.com/eigenhombre/clj-org/blob/master/src/clj_org/org.clj#L361)).
 
 ## Example
 
