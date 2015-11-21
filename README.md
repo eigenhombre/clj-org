@@ -2,6 +2,14 @@
 
 A (partially complete) Org Mode parser in Clojure
 
+[![Build Status](https://travis-ci.org/eigenhombre/clj-org.svg)](https://travis-ci.org/eigenhombre/clj-org)
+
+[![Clojars Project](http://clojars.org/clj-org/latest-version.svg)](http://clojars.org/clj-org)
+
+## Getting Started
+
+Add the above dependency to `project.clj`.
+
 ## License
 
 Copyright © 2015 John Jacobsen. MIT license.
