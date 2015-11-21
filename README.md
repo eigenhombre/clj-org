@@ -1,17 +1,15 @@
 # clj-org
 ![image](img/planetz.png)
 
-A (partially complete) Org Mode parser in Clojure.
+A (partial) Org Mode parser in Clojure.
 
 [![Build Status](https://travis-ci.org/eigenhombre/clj-org.svg)](https://travis-ci.org/eigenhombre/clj-org)
 
 [![Clojars Project](http://clojars.org/clj-org/latest-version.svg)](http://clojars.org/clj-org)
 
-This library parses (a subset of) Emacs [Org
-Mode](http://orgmode.org/) format to
-[Hiccup](https://github.com/weavejester/hiccup), which is a
-representation of HTML in S-expressions common for rendering Web pages
-but can be used more generally, as desired.
+This library parses Emacs [Org Mode](http://orgmode.org/) format to
+[Hiccup](https://github.com/weavejester/hiccup), which is a tree
+representation of HTML in the form of nested Clojure vectors.
 
 ## Getting Started
 
@@ -69,7 +67,6 @@ here](https://github.com/eigenhombre/clj-org/blob/master/src/clj_org/org.clj#L36
 	[:span
 	 [:a {:href "http://eigenhombre.com"} "A link to a Web site"]
 	 "\n"]]]]}
-
 
 ## License
 
