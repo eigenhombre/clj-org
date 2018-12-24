@@ -138,8 +138,9 @@
 
 (describe-examples identity srcify
   "asdf"                            ["asdf"]
-  "#+BEGIN_SRC x\n123\n#+END_SRC\n" [[:pre {:class "lang_x"}
-                                      "123\n"]])
+  "#+BEGIN_SRC x\n123\n#+END_SRC\n" [[:pre
+                                      [:code {:class "lang_x"}
+                                       "123\n"]]])
 
 
 (describe-examples identity example-ify
