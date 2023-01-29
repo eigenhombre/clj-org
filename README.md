@@ -3,7 +3,7 @@
 
 A (partial) Org Mode parser in Clojure.
 
-[![Build Status](https://travis-ci.org/eigenhombre/clj-org.svg)](https://travis-ci.org/eigenhombre/clj-org)
+![build](https://github.com/eigenhombre/clj-org/actions/workflows/build.yml/badge.svg)
 
 [![Clojars Project](http://clojars.org/clj-org/latest-version.svg)](http://clojars.org/clj-org)
 

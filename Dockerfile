@@ -10,4 +10,3 @@ COPY . /home/janice
 
 RUN make test
 
-
