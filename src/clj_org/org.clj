@@ -302,21 +302,21 @@
                  (
                    (?:
                      (?!
-                       \#\+BEGIN_SRC\s+
+                       \#\+(?i)\bBEGIN_SRC\b\s+
                        \S+
                        \n
                        .+?
-                       \#\+END_SRC\n
+                       \#\+(?i)\bEND_SRC\b\n
                      )
                      .
                    )+
                  )?
                  (?:
-                   \#\+BEGIN_SRC\s+
+                   \#\+(?i)\bBEGIN_SRC\b\s+
                    (\S+)
                    \n
                    (.+?)
-                   \#\+END_SRC\n
+                   \#\+(?i)\bEND_SRC\b\n
                  )?")
        (remove (partial every? empty?))
        (mapcat (fn [[_ before lang block]]
