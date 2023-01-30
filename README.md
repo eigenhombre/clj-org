@@ -73,6 +73,18 @@ ambiguities, so the parser has become what is basically a series of
 monster regular expressions ([example
 here](https://github.com/eigenhombre/clj-org/blob/master/src/clj_org/org.clj#L361)).
 
+## Status
+
+I don't use this much myself anymore, but others seem to find it
+useful so I'll continue to maintain and occasionally improve this
+repo, so long as the time commitment isn't too onerous.
+
+## Contributing
+
+Contributions/PRs welcome, but please add appropriate tests if you
+submit changes, and ensure that the build passes on your
+branch.
+
 ## License
 
 Copyright © 2015-2023 John Jacobsen. MIT license.
