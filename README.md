@@ -13,19 +13,14 @@ representation of HTML in the form of nested Clojure vectors.
 
 ## Getting Started
 
-Add the above dependency to `project.clj`.  Use
-`clj-org.org/parse-org` to convert a string of Org Mode text into
+Add the above dependency to `project.clj`:
+
+Add to your `project.clj` or `deps.edn`:
+
+    [eigenhombre/clj-org "0.0.2"]
+
+Then, use `clj-org.org/parse-org` to convert a string of Org Mode text into
 Hiccup.
-
-## Implementation
-
-Factored out of the [blorg](https://github.com/eigenhombre/blorg) blog
-prototype, this parser started out as an
-[Instaparse](https://github.com/Engelberg/instaparse) grammar.
-However, it proved too difficult to get good performance without
-ambiguities, so the parser has become what is basically a series of
-monster regular expressions ([example
-here](https://github.com/eigenhombre/clj-org/blob/master/src/clj_org/org.clj#L361)).
 
 ## Example
 
@@ -68,9 +63,19 @@ here](https://github.com/eigenhombre/clj-org/blob/master/src/clj_org/org.clj#L36
 	 [:a {:href "http://eigenhombre.com"} "A link to a Web site"]
 	 "\n"]]]]}
 
+## Implementation
+
+Factored out of the [blorg](https://github.com/eigenhombre/blorg) blog
+prototype, this parser started out as an
+[Instaparse](https://github.com/Engelberg/instaparse) grammar.
+However, it proved too difficult to get good performance without
+ambiguities, so the parser has become what is basically a series of
+monster regular expressions ([example
+here](https://github.com/eigenhombre/clj-org/blob/master/src/clj_org/org.clj#L361)).
+
 ## License
 
-Copyright © 2015 John Jacobsen. MIT license.
+Copyright © 2015-2023 John Jacobsen. MIT license.
 
 ## Disclaimer
 
