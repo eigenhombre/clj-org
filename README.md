@@ -17,7 +17,7 @@ Add the above dependency to `project.clj`:
 
 Add to your `project.clj` or `deps.edn`:
 
-    [eigenhombre/clj-org "0.0.2"]
+    [eigenhombre/clj-org "0.0.3"]
 
 Then, use `clj-org.org/parse-org` to convert a string of Org Mode text into
 Hiccup.
