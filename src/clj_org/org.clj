@@ -3,7 +3,6 @@
             [clojure.zip :as zip]
             [hiccup.util :refer [escape-html]]))
 
-
 (defn header-value-for [field txt]
   (->> txt
        (re-seq (->> field
@@ -12,16 +11,12 @@
        (map second)
        last))
 
-
 (defn get-title [txt] (header-value-for "TITLE" txt))
-
 
 (defn get-draft [txt]
   (->> txt (header-value-for "DRAFT") Boolean/valueOf))
 
-
 (defn get-tags [txt] (header-value-for "TAGS" txt))
-
 
 (defn strip-raw-html-tags-for-now [txt]
   (-> txt
@@ -31,13 +26,11 @@
                                 .*?
                                 \#\+END_HTML\s*" "")))
 
-
 (defn ^:private descend? [el]
   (and (coll? el)
        (not (string? el))
        (not (map? el))
        (not= :pre (first el))))
-
 
 (defn apply-fn-to-strings
   "
@@ -53,7 +46,6 @@
                 :else r0)))]
     (selective-walk f descend? string? tree)))
 
-
 (defn split-headers-and-body [txt]
   (let [[_ & rs]
         (re-find #"(?x)
@@ -67,7 +59,6 @@
                    ((?s)(?:.+)*)"
                  txt)]
     rs))
-
 
 (defn convert-body-to-sections [body]
   (let [matches
@@ -98,7 +89,6 @@
          (remove #{""})
          (vec* :div))))
 
-
 (defn find-paragraphs [s]
   (->> s
        (re-seq #"(?x)
@@ -106,7 +96,6 @@
                  |
                  (?:\n{2,})")
        (map (comp (partial vec* :p) rest))))
-
 
 (defn captionify [s]
   (->> s
@@ -131,7 +120,6 @@
                    :else [before [:a {:href img}
                                   [:img {:src img
                                          :class "caption"}]]])))))
-
 
 (defn linkify [s]
   (->> s
@@ -158,7 +146,6 @@
                    (not lnk) [before]
                    :else [before [:a {:href lnk} body]])))))
 
-
 (defn boldify [s]
   (->> s
        (re-seq #"(?sx)
@@ -184,7 +171,6 @@
                    (not before) [[:strong strong]]
                    (not strong) [before]
                    :else [before [:strong strong]])))))
-
 
 (defn emify [s]
   (->> s
@@ -215,7 +201,6 @@
                    (not em) [before]
                    :else [before [:em em]])))))
 
-
 (defn code-ify [s]
   (->> s
        (re-seq #"(?sx)
@@ -240,7 +225,6 @@
                    (not before) [[:code code]]
                    (not code) [before]
                    :else [before [:code code]])))))
-
 
 (defn strike-ify [s]
   (->> s
@@ -271,7 +255,6 @@
                    (not strike) [before]
                    :else [before [:strike strike]])))))
 
-
 (defn hr-ify [s]
   (->> s
        (re-seq #"(?sx)
@@ -294,7 +277,6 @@
                    (not before) [[:hr]]
                    (not hr) [before]
                    :else [before [:hr]])))))
-
 
 (defn srcify [txt]
   (->> txt
@@ -321,10 +303,14 @@
        (remove (partial every? empty?))
        (mapcat (fn [[_ before lang block]]
                  (cond
-                   (not before) [[:pre [:code {:class (str "lang_" lang)} block]]]
+                   (not before)
+                   [[:pre [:code {:class (str "lang_" lang)}
+                           block]]]
                    (not block) [before]
-                   :else [before [:pre [:code {:class (str "lang_" lang)} block]]])))))
-
+                   :else [before
+                          [:pre
+                           [:code {:class (str "lang_" lang)}
+                            block]]])))))
 
 (defn example-ify [txt]
   (->> txt
@@ -351,12 +337,10 @@
                    (not block) [before]
                    :else [before [:pre (escape-html block)]])))))
 
-
 (defn dashify [txt]
   (-> txt
       (clojure.string/replace #"---" "&#x2014;")
       (clojure.string/replace #"--" "&#x2013;")))
-
 
 (defn get-plain-lists
   "
@@ -402,7 +386,6 @@
        (map rest)
        (remove (partial every? empty?))))
 
-
 (defn items-seq-to-tree
   "
   Convert seq of [level, content] pairs into a tree using zippers.
@@ -434,7 +417,6 @@
                      (zip/insert-right [:li x])
                      zip/right)))))))
 
-
 (defn strip-leading-spaces
   "
   Strip leading spaces from every line in input.
@@ -452,7 +434,6 @@
                  txt-lines)
             (repeat \newline)))))
 
-
 (defn parse-plain-list [txt]
   (->> txt
        strip-leading-spaces
@@ -469,7 +450,6 @@
        (map (juxt (comp count first) second))
        items-seq-to-tree))
 
-
 (defn plain-listify [txt]
   (->> txt
        get-plain-lists
@@ -478,7 +458,6 @@
                    (not before-txt) [(parse-plain-list list-txt)]
                    (not list-txt) [before-txt]
                    :else [before-txt (parse-plain-list list-txt)])))))
-
 
 (defn tree-linkify [tree] (apply-fn-to-strings linkify tree))
 (defn tree-captionify [tree] (apply-fn-to-strings captionify tree))
@@ -493,10 +472,8 @@
 (defn tree-dashify [tree] (apply-fn-to-strings dashify tree))
 (defn tree-listify [tree] (apply-fn-to-strings plain-listify tree))
 
-
 (defn ^:private txt->lines [txt]
   (clojure.string/split txt #"\n"))
-
 
 (defn parse-org [txt]
   (let [title (get-title txt)
@@ -520,7 +497,6 @@
     {:title title
      :headers hdrs
      :content content}))
-
 
 (comment
 

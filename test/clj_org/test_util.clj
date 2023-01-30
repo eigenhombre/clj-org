@@ -15,7 +15,4 @@
   `(deftest ~(test-name-symbol)
      (are [~'lhs ~'rhs]
        (is (= (~left-fn ~'lhs) (~right-fn ~'rhs)))
-
        ~@body)))
-
-

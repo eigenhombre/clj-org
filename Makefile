@@ -2,6 +2,9 @@
 
 all: test jar
 
+lint:
+	lein do bikeshed, kibit, eastwood
+
 test:
 	lein test
 
