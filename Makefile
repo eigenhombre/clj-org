@@ -3,7 +3,7 @@
 all: test jar
 
 test:
-	lein spec
+	lein test
 
 clean:
 	rm -rf target docs

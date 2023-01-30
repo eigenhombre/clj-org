@@ -1,21 +1,12 @@
-(ns clj-org.org-spec
+(ns clj-org.org-test
   (:require [clj-org.org :refer :all]
             [clj-org.util :refer [vec*]]
-            [speclj.core :refer :all]))
-
-
-(defmacro describe-examples [right-fn left-fn & body]
-  `(describe "Examples"
-     ~@(for [[l r] (partition 2 body)]
-         `(~'it ~l
-            (~'should= (~right-fn ~r) (~left-fn ~l))))))
-
+            [clj-org.test-util :refer [describe-examples]]))
 
 (describe-examples identity get-title
   "#+TITLE: a title\n"          "a title"
   "#+TITLE: a title\nx\n"       "a title"
   "yz\n\n#+TITLE: a title\nx\n" "a title")
-
 
 (describe-examples identity split-headers-and-body
   "#+A\n"                       ["#+A\n" ""]
@@ -31,7 +22,6 @@
   "#+A\n#+HTML: jaz\n\nBody"    ["#+A\n" "#+HTML: jaz\n\nBody"]
   "#+A\n#+HTML_HEAD: jaz\n\nX"  ["#+A\n#+HTML_HEAD: jaz\n\n" "X"])
 
-
 (describe-examples #(vec* :div %) convert-body-to-sections
   "* Sec1\n"                [[:h1 "Sec1"]]
   "* Sec1\n* Sec2\n"        [[:h1 "Sec1"] [:h1 "Sec2"]]
@@ -43,13 +33,11 @@
   "NoSection\nL2\n"         ["NoSection\nL2\n"]
   "*bold* stuff\n* Sec1\n"  ["*bold* stuff\n" [:h1 "Sec1"]])
 
-
 (describe-examples identity find-paragraphs
   "x"          [[:p "x"]]
   "x\n"        [[:p "x\n"]]
   "p1\n\np2"   [[:p "p1\n"] [:p "p2"]]
   "p1\n\np2\n" [[:p "p1\n"] [:p "p2\n"]])
-
 
 (describe-examples identity linkify
   "nonlink"       ["nonlink"]
@@ -64,7 +52,6 @@
                              " y "
                              [:a {:href "c"} "d"]
                              " z"])
-
 
 (describe-examples identity captionify
   "nonlink"       ["nonlink"]
@@ -81,14 +68,12 @@
    [:a {:href "b"} [:img {:src "b" :class "caption"}]]
    " z"])
 
-
 (describe-examples identity boldify
   "zazza"         ["zazza"]
   "line1\nline2"  ["line1\nline2"]
   "*strong*"      [[:strong "strong"]]
   "good *stuff*"  ["good " [:strong "stuff"]]
   "*good* stuff"  [[:strong "good"] " stuff"])
-
 
 (describe-examples identity emify
   "zazza"                          ["zazza"]
@@ -100,12 +85,10 @@
   "http://foo"                     ["http://foo"]
   "http://bit.ly/simple-made-easy" ["http://bit.ly/simple-made-easy"])
 
-
 (describe-examples identity tree-emify
   "no em part"            "no em part"
   "xxx /yy/ zzz"          [:span "xxx " [:em "yy"] " zzz"]
   [:p "gimme /more/ em!"] [:p [:span "gimme " [:em "more"] " em!"]])
-
 
 (describe-examples identity code-ify
   "aaabbb"         ["aaabbb"]
@@ -114,7 +97,6 @@
   "a =code="       ["a " [:code "code"]]
   "=code= red"     [[:code "code"] " red"]
   "l1\nl2 =x=\n z" ["l1\nl2 " [:code "x"] "\n z"])
-
 
 (describe-examples identity strike-ify
   "aabb"           ["aabb"]
@@ -125,7 +107,6 @@
   "+strike+ me"   [[:strike "strike"] " me"]
   "l1\nl2 +x+\n z" ["l1\nl2 " [:strike "x"] "\n z"])
 
-
 (describe-examples identity hr-ify
   "asdf"     ["asdf"]
   ;; "a - b"    ["a - b"]
@@ -135,13 +116,11 @@
   ;; "----"     ["&#x2014;-"]
   "a\n-----\nb\n" ["a\n" [:hr] "\nb\n"])
 
-
 (describe-examples identity srcify
   "asdf"                            ["asdf"]
   "#+BEGIN_SRC x\n123\n#+END_SRC\n" [[:pre
                                       [:code {:class "lang_x"}
                                        "123\n"]]])
-
 
 (describe-examples identity example-ify
   "asdf"                                  ["asdf"]
@@ -153,7 +132,6 @@
                                                      "lang=&quot;ada&quot;&gt;"
                                                      "&lt;/script&gt;\n")]])
 
-
 (describe-examples identity dashify
   "aabb" "aabb"
   "-"    "-"
@@ -161,12 +139,10 @@
   "---"  "&#x2014;"
   "a--b" "a&#x2013;b")
 
-
 (describe-examples identity tree-dashify
   "no dashes"             "no dashes"
   "xxx -- zzz"            "xxx &#x2013; zzz"
   [:p "xxx -- zzz"]       [:p "xxx &#x2013; zzz"])
-
 
 (describe-examples identity get-plain-lists
   "a"                     [["a" nil]]
@@ -177,20 +153,19 @@
   "a\n- b\nc\n- d\n"      [["a\n" "- b\n"]
                            ["c\n" "- d\n"]])
 
-
 (describe-examples identity parse-plain-list
   "
 - a
 "      [:ul [:li "a\n"]]
-"
+  "
 - a
 - b
 "      [:ul [:li "a\n"] [:li "b\n"]]
-"
+  "
 - a
   - a1
 "      [:ul [:li "a\n"] [:ul [:li "a1\n"]]]
-"
+  "
 - a
 - b
   - a1
@@ -201,7 +176,7 @@
         [:ul
          [:li "a1\n"]
          [:li "a2\n"]]]
-"
+  "
 - a
   - a1
   - a2
@@ -212,7 +187,7 @@
          [:li "a1\n"]
          [:li "a2\n"]]
         [:li "b\n"]]
-"
+  "
 - a
 - b
   - b1
@@ -228,7 +203,7 @@
          [:ul
           [:li "b2a\n"]]]
         [:li "c\n"]]
-"
+  "
 - a
 - b
   - b1
@@ -244,12 +219,11 @@
          [:ul
           [:li "b2a\n"]]
          [:li "b3\n"]]]
-;; Don't start new list item w/out intervening newline:
-"- a - b\n" [:ul [:li "a - b\n"]]
-;; Strange pathological minimum case (regression test):
-"   - -- \n" [:ul [:li "-- \n"]]
-)
-
+  ;; Don't start new list item w/out intervening newline:
+  "- a - b\n" [:ul [:li "a - b\n"]]
+  ;; Strange pathological minimum case (regression test):
+  "   - -- \n" [:ul [:li "-- \n"]]
+  )
 
 (describe-examples identity tree-listify
   "a"                     "a"
