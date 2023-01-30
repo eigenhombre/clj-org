@@ -1,7 +1,8 @@
 (ns clj-org.org-test
   (:require [clj-org.org :refer :all]
+            [clj-org.test-util :refer [describe-examples]]
             [clj-org.util :refer [vec*]]
-            [clj-org.test-util :refer [describe-examples]]))
+            [clojure.test :refer [deftest are is]]))
 
 (describe-examples identity get-title
   "#+TITLE: a title\n"          "a title"
@@ -247,3 +248,15 @@
                            [:ul [:li "b\n"]]
                            "c\n"
                            [:ul [:li "d\n"]]])
+
+(deftest get-draft-test
+  (are [src expect]
+    (is (= expect (get-draft src)))
+    ""                     false
+    "\n\n#+DRAFT: false\n" false
+    "\n\n#+DRAFT: FALSE\n" false
+    "\n\n#+DRAFT:\n"       false
+    "\n\n#+DRAFT: 3\n"     false
+    "\n\n#+DRAFT: true\n"  true
+    "\n\n#+DRAFT: True\n"  true
+    "\n\n#+DRAFT: TRUE\n"  true))

@@ -15,7 +15,10 @@
 (defn get-title [txt] (header-value-for "TITLE" txt))
 
 (defn get-draft [txt]
-  (->> txt (header-value-for "DRAFT") Boolean/valueOf))
+  (->> txt
+       (header-value-for "DRAFT")
+       str
+       Boolean/valueOf))
 
 (defn get-tags [txt] (header-value-for "TAGS" txt))
 
