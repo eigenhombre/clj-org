@@ -75,9 +75,12 @@ here](https://github.com/eigenhombre/clj-org/blob/master/src/clj_org/org.clj#L36
 
 ## Status
 
+This repo does not cover all the functionality of Org Mode supported
+by Emacs, but may be enough for some use cases.
+
 I don't use this much myself anymore, but others seem to find it
-useful so I'll continue to maintain and occasionally improve this
-repo, so long as the time commitment isn't too onerous.
+useful so I'll continue to maintain, and occasionally improve, the
+repo so long as the time commitment isn't too onerous.
 
 ## Contributing
 
