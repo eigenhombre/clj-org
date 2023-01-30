@@ -1,5 +1,6 @@
 (ns clj-org.org
   (:require [clj-org.util :refer [vec* selective-walk]]
+            [clojure.string :as string]
             [clojure.zip :as zip]
             [hiccup.util :refer [escape-html]]))
 
@@ -427,12 +428,12 @@
                              (map (partial re-find #"^( *)"))
                              (map (comp count second))
                              (apply min))]
-    (apply str
-           (interleave
-            (map (comp (partial apply str)
-                       (partial drop spaces-to-strip))
-                 txt-lines)
-            (repeat \newline)))))
+    (string/join
+     (interleave
+      (map (comp (partial apply str)
+                 (partial drop spaces-to-strip))
+           txt-lines)
+      (repeat \newline)))))
 
 (defn parse-plain-list [txt]
   (->> txt
