@@ -120,7 +120,19 @@
   "asdf"                            ["asdf"]
   "#+BEGIN_SRC x\n123\n#+END_SRC\n" [[:pre
                                       [:code {:class "lang_x"}
-                                       "123\n"]]])
+                                       "123\n"]]]
+  "#+begin_src x\n123\n#+end_src\n" [[:pre
+                                      [:code {:class "lang_x"}
+                                       "123\n"]]]
+  "#+begin_SRC x\n123\n#+END_src\n" [[:pre
+                                      [:code {:class "lang_x"}
+                                       "123\n"]]]
+  "asdf\n#+begin_SRC x\n123\n#+END_src\nasdf\n"
+  ["asdf\n"
+   [:pre
+    [:code {:class "lang_x"}
+     "123\n"]]
+   "asdf\n"])
 
 (describe-examples identity example-ify
   "asdf"                                  ["asdf"]
