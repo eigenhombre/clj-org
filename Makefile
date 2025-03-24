@@ -21,4 +21,4 @@ jar:
 # 	lein codox
 
 docker:
-	docker build --progress tty -t clj-org .
+	docker build --progress plain -t clj-org .
